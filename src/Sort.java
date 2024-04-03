@@ -65,7 +65,7 @@ public class Sort implements AM {
 
         System.err.println("Merging...");
         startTimer();
-        arr = merge(parts);
+        arr = mergeLog(parts);
         stopTimer();
 
         System.err.println("Printing result...");
@@ -114,7 +114,7 @@ public class Sort implements AM {
         System.out.println("Done.");
     }
 
-    public static int[] merge(int[][] parts) {
+    public static int[] mergeLinear(int[][] parts) {
         int totalSize = 0;
         for (int[] part : parts)
             totalSize += part.length;
@@ -131,6 +131,56 @@ public class Sort implements AM {
                 }
             arr[i] = minValue;
             indices[chosenIndex]++;
+        }
+        return arr;
+    }
+
+    static class HeapItem implements Comparable<HeapItem> {
+        int[] part;
+        int index;
+
+        public HeapItem(int[] part) {
+            this.part = part;
+            this.index = 0;
+        }
+
+        public void next() {
+            index++;
+        }
+
+        public int get() {
+            return part[index];
+        }
+
+        public boolean has() {
+            return index < part.length;
+        }
+
+        @Override
+        public int compareTo(HeapItem other) {
+            return Integer.compare(this.get(), other.get());
+        }
+    }
+
+    public static int[] mergeLog(int[][] parts) {
+        int totalLength = 0;
+        for (int[] part : parts)
+            totalLength += part.length;
+        int[] arr = new int[totalLength];
+
+        PriorityQueue<HeapItem> pq = new PriorityQueue<>();
+        for (int[] part : parts) {
+            HeapItem item = new HeapItem(part);
+            if (item.has())
+                pq.add(item);
+        }
+
+        for (int i = 0; i < totalLength; i++) {
+            HeapItem item = pq.poll();
+            arr[i] = item.get();
+            item.next();
+            if (item.has())
+                pq.add(item);
         }
         return arr;
     }
