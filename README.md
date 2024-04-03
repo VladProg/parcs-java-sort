@@ -23,12 +23,12 @@ $ java -jar Daemon.jar
 $ sudo apt-get update && sudo apt-get install -y openjdk-17-jdk
 $ wget https://github.com/lionell/labs/raw/master/parcs/HostsServer/TCPHostsServer.jar
 $ cat > hosts.list
-<daemon-1 internal ip>
-<daemon-2 internal ip>
-<daemon-3 internal ip>
-<daemon-4 internal ip>
-<daemon-5 internal ip>
-<daemon-6 internal ip>
+$daemon_1_internal_ip
+$daemon_2_internal_ip
+$daemon_3_internal_ip
+$daemon_4_internal_ip
+$daemon_5_internal_ip
+$daemon_6_internal_ip
 $ java -jar TCPHostsServer.jar
 ```
 
@@ -38,7 +38,6 @@ $ java -jar TCPHostsServer.jar
 $ sudo apt-get update && sudo apt-get install -y openjdk-17-jdk git make
 $ git clone https://github.com/VladProg/parcs-java-sort.git
 $ cd parcs-java-sort
-$ echo <hosts-server internal ip> > out/server
-$ make generate
-$ make run WORKERS=<number of workers> < out/input-x.txt > <output file name>
+$ echo $hosts_server_internal_ip > out/server
+$ make run WORKERS=$number_of_workers <<< "$n $seed" > $output_file_name
 ```

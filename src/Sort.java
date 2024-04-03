@@ -1,7 +1,6 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.*;
+
 import parcs.*;
 
 public class Sort implements AM {
@@ -72,23 +71,26 @@ public class Sort implements AM {
         System.err.println("Printing result...");
         startTimer();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-        for (int item : arr)
-            writer.write(item + "\n");
+        for (int i = 0; i <= 99; i++)
+            writer.write(arr[(int) ((long)(arr.length - 1) * i / 99)] + "\n");
         writer.close();
         stopTimer();
         
         curtask.end();
     }
 
-    public static int[] readInput() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static int[] readInput() {
+        Scanner scanner = new Scanner(System.in);
 
-        int n = Integer.parseInt(br.readLine());
+        int n = scanner.nextInt();
+        int seed = scanner.nextInt();
+
         int[] arr = new int[n];
-
+        Random rng = new Random(seed);
         for (int i = 0; i < n; i++)
-            arr[i] = Integer.parseInt(br.readLine());
-        br.close();
+            arr[i] = rng.nextInt();
+
+        scanner.close();
 
         return arr;
     }

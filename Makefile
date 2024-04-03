@@ -1,12 +1,7 @@
 all: run
 
 clean:
-	rm -f out/Sort.jar out/*.txt
-
-generate:
-	python3 src/generator.py 100000 > out/input-100000.txt
-	python3 src/generator.py 1000000 > out/input-1000000.txt
-	python3 src/generator.py 10000000 > out/input-10000000.txt
+	rm -f out/Sort.jar
 
 out/Sort.jar: out/parcs.jar src/Sort.java
 	@mkdir -p temp
